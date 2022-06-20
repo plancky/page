@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&display=swap');
+
+body {
+    overflow: hidden;
+    color: black;
+    background-color: #f9f1f1;
+}
+
+.Name {
+    background-color: transparent;
+    color: black;
+    font-size: 46;
+    font-family: 'Averia Serif Libre',cursive;
+    /*margin-bottom: 40px;*/
+    box-sizing: content-box;
+    width : max-content;
+    margin: auto;
+    padding-top: 8%;
+    
+    /*border: 3px solid green;*/
+}
+
+.quote1 {
+    color: black;
+    background-color: transparent;
+    font-size: 20;
+    font-family:  'Averia Serif Libre' ;
+    font-style: italic;
+    width: max-content;
+    margin: auto;
+}
+
+canvas {
+    box-sizing: border-box;
+    /* padding-top: 1rem; */
+    /*background-color: #212121;*/
+    background-color: transparent;
+    /*position: relative;*/
+    position: absolute;
+    z-index: -1;
+  }
