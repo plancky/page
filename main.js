@@ -4,6 +4,7 @@ const canvas = document.querySelector("#my_image");
 const body = document.querySelector("body");
 canvas.height =  window.innerHeight;
 canvas.width = window.innerWidth;
+canvas.width = body.width;
 const dimension = canvas.getBoundingClientRect();
 const ctx = canvas.getContext("2d");
 let graphPoints = [];

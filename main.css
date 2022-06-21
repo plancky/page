@@ -1,13 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&display=swap');
 
-body {
+html,body {
+    height: 100%;
     overflow: hidden;
+    box-sizing: border-box;
     color: black;
     background-color: #f9f1f1;
 }
 
+div.iconbox {
+    position: relative;
+    margin: 10vh auto auto;
+    z-index: 1;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    width : 5vh;
+    height : 5vh;
+}
+
+.icons {
+    box-sizing: border-box;
+}
+
+.bigtitle {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    margin-top: 60vh;
+    align-items: center;
+    justify-content: center;
+}
+
 .Name {
     background-color: transparent;
+    text-align: inherit;
     color: black;
     font-size: 46;
     font-family: 'Averia Serif Libre',cursive;
@@ -15,27 +42,31 @@ body {
     box-sizing: content-box;
     width : max-content;
     margin: auto;
-    padding-top: 8%;
+    padding-top: 1%;
     
     /*border: 3px solid green;*/
 }
 
 .quote1 {
     color: black;
+    text-align: inherit;
     background-color: transparent;
     font-size: 20;
     font-family:  'Averia Serif Libre' ;
     font-style: italic;
+    margin:auto;
     width: max-content;
     margin: auto;
 }
 
 canvas {
-    box-sizing: border-box;
-    /* padding-top: 1rem; */
-    /*background-color: #212121;*/
+    overflow:scroll;
     background-color: transparent;
-    /*position: relative;*/
     position: absolute;
-    z-index: -1;
-  }
+    z-index: 0;
+}
+
+@namespace svg url(http://www.w3.org/2000/svg);
+svg|a:hover, svg|a:active {
+    outline: dotted 1px black;
+}
