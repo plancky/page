@@ -13,7 +13,8 @@ let lineStroke = 1.3;
 let fps = 60;
 let timestep = 0.001;
 let time = 0;
-
+let curveColor = "#e55d47";
+// 00ffdd
 
 class Complex {
   constructor(x, y) {
@@ -96,7 +97,7 @@ const drawLine = (x1, y1, x2, y2, stroke = 1, color = "black") => {
 const drawCurve = (pointsArr) => {
   for (let i = 0; i < pointsArr.length; i++) {
     if (pointsArr[i + 1])
-      drawLine(pointsArr[i].x, pointsArr[i].y, pointsArr[i + 1].x, pointsArr[i + 1].y, lineStroke, "#00ffdd");
+      drawLine(pointsArr[i].x, pointsArr[i].y, pointsArr[i + 1].x, pointsArr[i + 1].y, lineStroke, curveColor);
   }
 };
 

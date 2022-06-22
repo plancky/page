@@ -5,7 +5,8 @@ html,body {
     overflow: hidden;
     box-sizing: border-box;
     color: black;
-    background-color: #f9f1f1;
+    background-color: #ffe6d5;
+    /*#f9f1f1;*/
 }
 
 div.iconbox {
@@ -60,7 +61,7 @@ div.iconbox {
 }
 
 canvas {
-    overflow:scroll;
+    overflow: hidden;
     background-color: transparent;
     position: absolute;
     z-index: 0;
