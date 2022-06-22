@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&display=swap');
 
 html,body {
+    margin: 0;
     height: 100%;
     overflow: hidden;
     box-sizing: border-box;
@@ -61,6 +62,8 @@ div.iconbox {
 }
 
 canvas {
+    margin:0;
+    height: 100%;
     overflow: hidden;
     background-color: transparent;
     position: absolute;
