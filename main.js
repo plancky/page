@@ -2,14 +2,15 @@ import { me,me_v2 ,me_v3,ankur,Harsh} from "./dat.js";
 import { Complex,curve} from "./complex.js";
 
 const canvas = document.querySelector("#my_image");
+//const body = document.querySelector("#my_image");
 canvas.height =  window.innerHeight;
 canvas.width = window.innerWidth;
 
 const dimension = canvas.getBoundingClientRect();
 const ctx = canvas.getContext("2d");
 
-let stopID; 
-let graphPoints = [];
+var stopID;
+let drawflag=true;
 let circleStroke = 1.1;
 let lineStroke = 1.3;
 let fps = 60;
@@ -52,7 +53,7 @@ const drawCurve = (pointsArr) => {
   }
 };
 
-const epicycles = (x, y,time, rotation, fourier,draw=true) => {
+const epicycles = (x, y,time, rotation, fourier) => {
   for (let i = 0; i < fourier.length; i++) {
     const prevX = x;
     const prevY = y;
@@ -64,7 +65,7 @@ const epicycles = (x, y,time, rotation, fourier,draw=true) => {
 
     x += radius * Math.cos(2 * Math.PI* freq * time + phase + rotation);
     y += radius * Math.sin(2 * Math.PI* freq * time + phase + rotation);
-    if (draw) {
+    if (drawflag) {
       drawLine(prevX, prevY, x, y, circleStroke * 0.2);
       drawCircle(prevX, prevY, radius, circleStroke);
     };
@@ -86,7 +87,7 @@ const startDrawing = (inptcurve,x= me_v3.width/5 ,y= me_v3.height /5) => {
 
 const update = (inptcurve,dt) => {
   inptcurve.t += dt; // move time t += dt if t!=0
-  if (inptcurve.t == 1.1) {window.cancelAnimationFrame( stopID );};
+  //if (inptcurve.t >= 0.2) {window.cancelAnimationFrame( stopID ); drawflag = false; };
 }
 
 const render = (inptcurve) => {
