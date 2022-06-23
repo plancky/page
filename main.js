@@ -1,78 +1,29 @@
 import { me,me_v2 ,me_v3,ankur,Harsh} from "./dat.js";
+import { Complex,curve} from "./complex.js";
 
 const canvas = document.querySelector("#my_image");
-const body = document.querySelector("body");
 canvas.height =  window.innerHeight;
 canvas.width = window.innerWidth;
-canvas.width = body.width;
+
 const dimension = canvas.getBoundingClientRect();
 const ctx = canvas.getContext("2d");
+
+let stopID; 
 let graphPoints = [];
 let circleStroke = 1.1;
 let lineStroke = 1.3;
 let fps = 60;
-let timestep = 0.001;
+let dt = 0.0015;
 let time = 0;
 let curveColor = "#e55d47";
-// 00ffdd
+let circleColor = "grey";
+let lineColor = "grey";
 
-class Complex {
-  constructor(x, y) {
-    this.re = x;
-    this.im = y;
-  }
+let mycurve = new curve(me_v3,"#my_image");
+mycurve.mode =  1;
 
-  add(other) {
-    const re = this.re + other.re;
-    const im = this.im + other.im;
-    return new Complex(re, im);
-  }
 
-  multiply(other) {
-    const re = this.re * other.re - this.im * other.im;
-    const im = this.re * other.im + this.im * other.re;
-    return new Complex(re, im);
-  }
-
-  divide(other) {
-    const re = (this.re * other.re + this.im * other.im) / (other.re * other.re + other.im * other.im);
-    const im = (this.im * other.re - this.re * other.im) / (other.re * other.re + other.im * other.im);
-    return new Complex(re, im);
-  }
-
-  amplitude() {
-    return Math.sqrt(this.re * this.re + this.im * this.im);
-  }
-
-  phase() {
-    return Math.atan2(this.im, this.re);
-  }
-}
-
-class curve {
-  constructor (x,id){
-    this.coeffs = x;
-    this.graphpoints = [];
-    this.mode = 1  ;
-    this.canvas = document.querySelector(id);
-    this.t = 0 ;
-    this.id = 0;
-    this.stopflag = 0;
-    this.canvas.height =  window.innerHeight ;
-    this.canvas.width = window.innerWidth;
-  }
-}
-
-let me_fig = new curve(me_v3,"#my_image");
-let ankur_fig = new curve(ankur,"#my_image");
-let Harsh_fig = new curve(Harsh,"#my_image");
-me_fig.mode =  1;
-
-const clearCanvas = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-};
-
-const drawCircle = (x, y, r, strokeWidth = 1, s = false,color="grey") => {
+const drawCircle = (x, y, r, strokeWidth = 1, s = false, color=circleColor) => {
   ctx.beginPath();
   ctx.lineWidth = strokeWidth * 0.2;
   ctx.arc(x, y, r, 0, 2 * Math.PI);
@@ -85,7 +36,7 @@ const drawCircle = (x, y, r, strokeWidth = 1, s = false,color="grey") => {
   ctx.stroke();
 };
   
-const drawLine = (x1, y1, x2, y2, stroke = 1, color = "black") => {
+const drawLine = (x1, y1, x2, y2, stroke = 1, color = lineColor) => {
   ctx.beginPath();
   ctx.lineWidth = stroke;
   ctx.moveTo(x1, y1);
@@ -113,40 +64,45 @@ const epicycles = (x, y,time, rotation, fourier,draw=true) => {
 
     x += radius * Math.cos(2 * Math.PI* freq * time + phase + rotation);
     y += radius * Math.sin(2 * Math.PI* freq * time + phase + rotation);
-    if (draw){
-    drawLine(prevX, prevY, x, y, circleStroke * 0.2);
-    drawCircle(prevX, prevY, radius, circleStroke);
-    //if (i === fourier.length - 1) drawCircle(x, y, 2, true);
+    if (draw) {
+      drawLine(prevX, prevY, x, y, circleStroke * 0.2);
+      drawCircle(prevX, prevY, radius, circleStroke);
     };
   }
   return { x, y };
 };
 
+const clearCanvas = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+};
 
-const startDrawing = (inptcurve,x= me_v3.width/5 ,y= me_v3.height /5,dt = 0.001) => {
-  const points = epicycles(x, y,inptcurve.t, 0, inptcurve.coeffs,!inptcurve.stopflag);
+const startDrawing = (inptcurve,x= me_v3.width/5 ,y= me_v3.height /5) => {
+  const points = epicycles(x, y,inptcurve.t, 0, inptcurve.coeffs);
   if (inptcurve.t<=1.1) {
     inptcurve.graphpoints.unshift(points);
   }
-  else {
-    if (inptcurve.mode == 0){ inptcurve.stopflag = 1; };
-  };
   drawCurve(inptcurve.graphpoints);
-  inptcurve.t+=dt;
 }
 
-const setup_new_frame = () => {
-  if (ankur_fig.stopflag && me_fig.stopflag) return;
+const update = (inptcurve,dt) => {
+  inptcurve.t += dt; // move time t += dt if t!=0
+  if (inptcurve.t == 1.1) {window.cancelAnimationFrame( stopID );};
+}
+
+const render = (inptcurve) => {
   clearCanvas();
-  //startDrawing(ankur_fig,canvas.width/3,canvas.height/2);
-  startDrawing(me_fig,canvas.width/2.04,canvas.height/2);
-  //startDrawing(Harsh_fig,canvas.width/2,canvas.height/1.5);
-  //const id1 = setInterval(setup_new_frame,1000/fps);
-  window.requestAnimationFrame(setup_new_frame);
-};
+  startDrawing(mycurve,canvas.width/2.04,canvas.height/2);  
+}
 
-ankur_fig.mode =  0;
-
-Harsh_fig.mode = 0;
-
-setup_new_frame();
+;(function () {
+  function main( tFrame ) {
+    stopID = window.requestAnimationFrame( main );
+    update(mycurve,dt);
+    render(mycurve);
+    //setTimeout(render, 1000/fps, mycurve);
+  }
+  var fps = 4;
+  var ticklength = 1000/fps;
+  //setInitialState();
+  main(); // Start the cycle
+})();
