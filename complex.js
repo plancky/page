@@ -33,7 +33,7 @@ class Complex {
   }
   
   
-  class curve {
+class curve {
     constructor (x,id){
       this.coeffs = x;
       this.graphpoints = [];
@@ -42,8 +42,8 @@ class Complex {
       this.t = 0 ;
       this.id = 0;
       this.stopflag = 0;
-      this.canvas.height =  window.innerHeight ;
-      this.canvas.width = window.innerWidth;
+      this.canvas.height =  window.innerHeight*0.85 ;
+      this.canvas.width = window.innerHeight*0.85;
     }
   }
 

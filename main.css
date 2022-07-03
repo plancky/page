@@ -6,8 +6,18 @@ html,body {
     overflow: hidden;
     box-sizing: border-box;
     color: black;
-    background-color: #ffe6d5;
+    /*background-color: #ffe6d5;*/
+    background: linear-gradient(#ff0900, black);
     /*#f9f1f1;*/
+}
+
+
+.cover {
+    display: block;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin: auto;
 }
 
 div.iconbox {
@@ -17,12 +27,20 @@ div.iconbox {
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
-    width : 5vh;
-    height : 5vh;
+    width : calc(4.4vh);
+    height : calc(4.4vh);
 }
 
-.icons {
-    box-sizing: border-box;
+object.icons {
+    width : 100%;
+    pointer-events: none;
+}
+
+a.icons {
+    width: 100%;
+    border-radius: 50%;
+    display: inline-block;
+    pointer-events: all;
 }
 
 .bigtitle {
@@ -61,16 +79,28 @@ div.iconbox {
     margin: auto;
 }
 
+#canvas_container {
+    width: 100%;
+    text-align:center;
+    margin: auto;
+}
+
 canvas {
-    margin:0;
-    height: 100%;
     overflow: hidden;
-    background-color: transparent;
+    /*background-color: transparent;
+    background-color: #fae500;*/
+    background-color: #ff0900;
+    background-image: url("assets/dark-leather.png"); 
     position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
     z-index: 0;
 }
 
-@namespace svg url(http://www.w3.org/2000/svg);
-svg|a:hover, svg|a:active {
-    outline: dotted 1px black;
+a:hover {
+    border-color: whitesmoke;
+    border-width: 30px;
 }

@@ -1,10 +1,10 @@
 import { me,me_v2 ,me_v3,ankur,Harsh} from "./dat.js";
-import { Complex,curve} from "./complex.js";
+import {Complex,curve} from "./complex.js";
 
 const canvas = document.querySelector("#my_image");
 //const body = document.querySelector("#my_image");
-canvas.height =  window.innerHeight;
-canvas.width = window.innerWidth;
+//canvas.height =  window.innerHeight/2;
+//canvas.width = window.innerWidth/2;
 
 const dimension = canvas.getBoundingClientRect();
 const ctx = canvas.getContext("2d");
@@ -16,7 +16,8 @@ let lineStroke = 1.3;
 let fps = 60;
 let dt = 0.0015;
 let time = 0;
-let curveColor = "#e55d47";
+//let curveColor = "#e55d47";
+let curveColor = "black";
 let circleColor = "grey";
 let lineColor = "grey";
 
@@ -53,13 +54,13 @@ const drawCurve = (pointsArr) => {
   }
 };
 
-const epicycles = (x, y,time, rotation, fourier) => {
+const epicycles = (x, y,time,scale , rotation, fourier) => {
   for (let i = 0; i < fourier.length; i++) {
     const prevX = x;
     const prevY = y;
 
     const freq = fourier[i][3];
-    const radius = fourier[i][2];
+    const radius = fourier[i][2]*scale;
     const loc =  new Complex(fourier[i][0],fourier[i][1]);
     const phase = loc.phase() 
 
@@ -78,7 +79,7 @@ const clearCanvas = () => {
 };
 
 const startDrawing = (inptcurve,x= me_v3.width/5 ,y= me_v3.height /5) => {
-  const points = epicycles(x, y,inptcurve.t, 0, inptcurve.coeffs);
+  const points = epicycles(x, y,inptcurve.t,0.5, 0, inptcurve.coeffs);
   if (inptcurve.t<=1.1) {
     inptcurve.graphpoints.unshift(points);
   }
