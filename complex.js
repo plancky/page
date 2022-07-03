@@ -42,9 +42,12 @@ class curve {
       this.t = 0 ;
       this.id = 0;
       this.stopflag = 0;
+      if (window.innerHeight<window.innerWidth){
       this.canvas.height =  window.innerHeight*0.85 ;
       this.canvas.width = window.innerHeight*0.85;
-    }
+    } else { this.canvas.height =  window.innerWidth*0.9 ; this.canvas.width = window.innerWidth*0.9;
+    } 
+  }
   }
 
   export {Complex,curve};
