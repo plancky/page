@@ -1,10 +1,8 @@
-import { me,me_v2 ,me_v3,ankur,Harsh} from "./dat.js";
-import {Complex,curve} from "./complex.js";
+import { me,me_v2 ,me_v3,ankur,Harsh} from "./lib/dat.js";
+import {Complex,curve} from "./lib/complex.js";
+import { epicycles,drawCurve } from "./lib/draw.js";
 
 const canvas = document.querySelector("#my_image");
-//const body = document.querySelector("#my_image");
-//canvas.height =  window.innerHeight/2;
-//canvas.width = window.innerWidth/2;
 
 const dimension = canvas.getBoundingClientRect();
 const ctx = canvas.getContext("2d");
@@ -15,75 +13,30 @@ let circleStroke = 1.1;
 let lineStroke = 1.3;
 let fps = 60;
 let dt = 0.0015;
-let time = 0;
 //let curveColor = "#e55d47";
-let curveColor = "black";
-let circleColor = "grey";
-let lineColor = "grey";
+let colorTheme = ["black","white","white"]; 
 
 let mycurve = new curve(me_v3,"#my_image");
-mycurve.mode =  1;
-
-
-const drawCircle = (x, y, r, strokeWidth = 1, s = false, color=circleColor) => {
-  ctx.beginPath();
-  ctx.lineWidth = strokeWidth * 0.2;
-  ctx.arc(x, y, r, 0, 2 * Math.PI);
-  if (s) {
-    ctx.fillStyle = color;
-    ctx.fill();
-    return;
-  }
-  ctx.strokeStyle = color;
-  ctx.stroke();
-};
-  
-const drawLine = (x1, y1, x2, y2, stroke = 1, color = lineColor) => {
-  ctx.beginPath();
-  ctx.lineWidth = stroke;
-  ctx.moveTo(x1, y1);
-  ctx.lineTo(x2, y2);
-  ctx.strokeStyle = color;
-  ctx.stroke();
-};
-  
-const drawCurve = (pointsArr) => {
-  for (let i = 0; i < pointsArr.length; i++) {
-    if (pointsArr[i + 1])
-      drawLine(pointsArr[i].x, pointsArr[i].y, pointsArr[i + 1].x, pointsArr[i + 1].y, lineStroke, curveColor);
-  }
-};
-
-const epicycles = (x, y,time,scale , rotation, fourier) => {
-  for (let i = 0; i < fourier.length; i++) {
-    const prevX = x;
-    const prevY = y;
-
-    const freq = fourier[i][3];
-    const radius = fourier[i][2]*scale;
-    const loc =  new Complex(fourier[i][0],fourier[i][1]);
-    const phase = loc.phase() 
-
-    x += radius * Math.cos(2 * Math.PI* freq * time + phase + rotation);
-    y += radius * Math.sin(2 * Math.PI* freq * time + phase + rotation);
-    if (drawflag) {
-      drawLine(prevX, prevY, x, y, circleStroke * 0.2);
-      drawCircle(prevX, prevY, radius, circleStroke);
-    };
-  }
-  return { x, y };
-};
+let edgeOfCanvas = window.innerHeight*0.85
+if (window.innerHeight<window.innerWidth){
+  canvas.height = edgeOfCanvas;
+  canvas.width = edgeOfCanvas;
+} 
+else { 
+  canvas.height = edgeOfCanvas;
+  canvas.width = window.innerWidth*0.9;
+}
 
 const clearCanvas = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
 
 const startDrawing = (inptcurve,x= me_v3.width/5 ,y= me_v3.height /5) => {
-  const points = epicycles(x, y,inptcurve.t,0.5, 0, inptcurve.coeffs);
+  const points = epicycles(ctx,x, y,inptcurve.t,0.5, 0, inptcurve.coeffs, colorTheme, [circleStroke*0.7,circleStroke],drawflag );
   if (inptcurve.t<=1.1) {
     inptcurve.graphpoints.unshift(points);
   }
-  drawCurve(inptcurve.graphpoints);
+  drawCurve(ctx, inptcurve.graphpoints,colorTheme[0], lineStroke);
 }
 
 const update = (inptcurve,dt) => {

@@ -50,12 +50,12 @@ a.icons {
     margin-top: 60vh;
     align-items: center;
     justify-content: center;
+    color:white;
 }
 
 .Name {
     background-color: transparent;
     text-align: inherit;
-    color: black;
     font-size: 46;
     font-family: 'Averia Serif Libre',cursive;
     /*margin-bottom: 40px;*/
