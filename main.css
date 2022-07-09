@@ -6,9 +6,9 @@ body {
     height: 100%;
     overflow: hidden;
     box-sizing: border-box;
-    color: black;
+    color: #17301C;
     /*background-color: #ffe6d5;*/
-    background: linear-gradient(#ff0900, black);
+    background: linear-gradient(#744FC6, #4FB0C6);
     /*#f9f1f1;*/
 }
 
@@ -30,17 +30,17 @@ body {
     padding: 20px;
     z-index: 1;
     font-family: 'Lato', sans-serif;
-    color: white;
+    color: #17301C;
     place-self: center;
 }
 
 .cover {
     grid-area: cvs;
-    padding: 20px;
     box-sizing: border-box;
     place-self: center;
-    width:100%;
+    width: 100%;
     height: 100%;
+    padding: 30px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 10% auto 15% ;
@@ -103,10 +103,9 @@ canvas {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    /*background-color: transparent;
-    background-color: #fae500;*/
-    background-color: #ff0900;
-    background-image: url("assets/dark-leather.png"); 
+    /*background-color: transparent;*/
+    background-color: #4F86C6;
+    /*background-image: url("assets/dark-leather.png");*/ 
     position: absolute;
     z-index: 0;
 }
@@ -123,6 +122,7 @@ a:hover {
         "des des";
     }
     .cover {
+        padding: 20px;
         padding-bottom: 0px;
     }
 }
