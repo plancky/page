@@ -3,6 +3,13 @@ import {Complex,curve} from "./lib/complex.js";
 import { epicycles,drawCurve } from "./lib/draw.js";
 
 const canvas = document.querySelector("#my_image");
+const container = document.querySelector("#canvas-container");
+console.log(container.height)
+console.log(100)
+canvas.width  = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
+//canvas.height = container.height
+//canvas.width = container.width
 
 const dimension = canvas.getBoundingClientRect();
 const ctx = canvas.getContext("2d");
@@ -17,15 +24,16 @@ let dt = 0.0015;
 let colorTheme = ["black","white","white"]; 
 
 let mycurve = new curve(me_v3,"#my_image");
-let edgeOfCanvas = window.innerHeight*0.85
-if (window.innerHeight<window.innerWidth){
-  canvas.height = edgeOfCanvas;
-  canvas.width = edgeOfCanvas;
-} 
-else { 
-  canvas.height = edgeOfCanvas;
-  canvas.width = window.innerWidth*0.9;
-}
+
+//let edgeOfCanvas = window.innerHeight*0.85
+//if (window.innerHeight<window.innerWidth){
+//  canvas.height = edgeOfCanvas;
+//  canvas.width = edgeOfCanvas;
+//} 
+//else { 
+//  canvas.height = edgeOfCanvas;
+//  canvas.width = window.innerWidth*0.9;
+//}
 
 const clearCanvas = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);

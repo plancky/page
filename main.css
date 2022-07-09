@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
-html,body {
+body {
     margin: 0;
     height: 100%;
     overflow: hidden;
@@ -11,27 +12,55 @@ html,body {
     /*#f9f1f1;*/
 }
 
-
-.cover {
-    display: block;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    margin: auto;
+#main-container {
+    height: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: [leftmost] 1fr [middleline] 1fr [rightmost];
+    grid-template-rows: 1.5fr 0.5fr;
+    grid-template-areas: 
+    "cvs des"
+    "cvs des";
 }
 
-div.iconbox {
-    position: relative;
-    margin: 10vh auto auto;
+.intro {
+    grid-column: middleline / span rightmost;
+    grid-row: 1 / span 2;
+    grid-area: des;
+    padding: 20px;
     z-index: 1;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    place-self: center;
+}
+
+.cover {
+    grid-area: cvs;
+    padding: 20px;
     box-sizing: border-box;
-    align-items: center;
-    justify-content: center;
+    place-self: center;
+    width:100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 10% auto 15% ;
+    grid-template-areas:
+        "icns "
+        "canvas "
+        "name ";
+    place-items: stretch;
+}
+
+.iconbox {
+    grid-area: icns;
+    place-self: center;
+    position: relative;
+    z-index: 1;
     width : calc(4.4vh);
     height : calc(4.4vh);
 }
 
-object.icons {
+.icons {
     width : 100%;
     pointer-events: none;
 }
@@ -39,18 +68,17 @@ object.icons {
 a.icons {
     width: 100%;
     border-radius: 50%;
-    display: inline-block;
     pointer-events: all;
 }
 
 .bigtitle {
+    grid-area: name;
     position: relative;
     z-index: 1;
     box-sizing: border-box;
-    margin-top: 60vh;
     align-items: center;
     justify-content: center;
-    color:white;
+    color: black;
 }
 
 .Name {
@@ -63,44 +91,38 @@ a.icons {
     width : max-content;
     margin: auto;
     padding-top: 1%;
-    
     /*border: 3px solid green;*/
 }
 
-.quote1 {
-    color: black;
-    text-align: inherit;
-    background-color: transparent;
-    font-size: 20;
-    font-family:  'Averia Serif Libre' ;
-    font-style: italic;
-    margin:auto;
-    width: max-content;
-    margin: auto;
-}
-
-#canvas_container {
-    width: 100%;
-    text-align:center;
-    margin: auto;
+#canvas-container {
+    grid-area: 1/1/4/2;
+    position: relative;
 }
 
 canvas {
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     /*background-color: transparent;
     background-color: #fae500;*/
     background-color: #ff0900;
     background-image: url("assets/dark-leather.png"); 
     position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin:auto;
     z-index: 0;
 }
 
 a:hover {
     border-color: whitesmoke;
     border-width: 30px;
+}
+
+@media (max-width : 850px){
+    #main-container{
+        grid-template-areas: 
+        "cvs cvs"
+        "des des";
+    }
+    .cover {
+        padding-bottom: 0px;
+    }
 }
